@@ -49,14 +49,15 @@
 (defn start-network-sequential-processing
   "Starts a communicating sequential process that sends network requests from the request queue."
   [{:keys [networking queue response-channel]}]
-  (letfn [(make-process-response [action]
+  (letfn [(make-process-response [action callback-args]
             (fn [resp]
-              (try (action resp) (finally (go (async/>! response-channel :complete))))))]
+              (try (apply action (apply conj [resp] callback-args))
+                   (finally (go (async/>! response-channel :complete))))))]
     (go
       (loop [payload (async/<! queue)]
-        (let [{:keys [query on-load on-error]} payload
-              on-load (make-process-response on-load)
-              on-error (make-process-response on-error)]
+        (let [{:keys [query on-load on-error callback-args]} payload
+              on-load (make-process-response on-load callback-args)
+              on-error (make-process-response on-error callback-args)]
           (net/send networking (plumbing/strip-ui query) on-load on-error))
         (async/<! response-channel)                         ; expect to block
         (recur (async/<! queue))))))
