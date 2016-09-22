@@ -66,7 +66,7 @@
   (reset-state! [this new-state] "Replace the entire app state with the given (pre-normalized) state.")
   (refresh [this] "Refresh the UI (force re-render). NOTE: You MUST support :key on your root DOM element with the :ui/react-key value from app state for this to work.")
   (history [this] "Return a serialized version of the current history of the application, suitable for network transfer")
-  (reset-history [this] "Returns the app with history reset to its initial, empty state.Resets application history to its initial, empty state. Suitable for resetting the app for situations such as user log out."))
+  (reset-history [this] "Returns the app with history reset to its initial, empty state. Resets application history to its initial, empty state. Suitable for resetting the app for situations such as user log out."))
 
 (defn- merge-alternate-union-elements! [app root-component]
   (letfn [(walk-ast
