@@ -6,10 +6,9 @@
     [goog.object :as gobj]
     [goog.dom :as gdom]
     [goog.events :as gevt]
+    [clojure.spec :as s]
     [clojure.string :as str]
-    hiccups.runtime)
-  (:require-macros
-    [hiccups.core :refer [html]])
+    [untangled.client.impl.ui :as impl])
   (:import
     goog.events.EventType))
 
@@ -36,17 +35,12 @@
       (js/console.log @node-clone)
       (select-file! (cljs.reader/read-string meta-info)))))
 
-(defn node [html-str]
-  (let [div (js/document.createElement "div")]
-    (set! (.-innerHTML div) html-str)
-    (.-firstChild div)))
-
 (defn ensure-panel []
   (let [container-id "untangled-client-ui-dev-panel"
         content-id "untangled-client-ui-dev-panel-content-area"]
     (if-not (js/document.querySelector (str "#" container-id))
       (let [panel
-            (html
+            (impl/html
               [:div {:id container-id :class "dev-panel-bottom"}
                [:div {:id content-id :class "tabbed"}
                 [:input {:name "tabbed" :id "repl-tab" :type "radio" :checked true}]
@@ -58,9 +52,9 @@
                 [:input {:name "tabbed" :id "appstate-tab" :type "radio"}]
                 [:section {}
                  [:h1 [:label {:for "appstate-tab"} "appstate"]]
-                 [:div {} "appstate=>"]]]]) ]
+                 [:div {} "appstate=>"]]]])]
         (-> (.-body js/document)
-          (.appendChild (node panel)))
+          (.appendChild panel))
         (goog.events.listen (js/document.querySelector "#repl-submit")
           goog.events.EventType.CLICK
           (fn [_]

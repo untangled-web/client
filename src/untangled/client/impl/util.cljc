@@ -36,13 +36,12 @@
     (defn dbg [& args]
       (.println System/out (apply str (interpose " " args)))))
 
-#?(:clj
-    (defn conform! [spec x]
-      (let [rt (s/conform spec x)]
-        (when (s/invalid? rt)
-          (throw (ex-info (s/explain-str spec x)
-                   (s/explain-data spec x))))
-        rt)))
+(defn conform! [spec x]
+  (let [rt (s/conform spec x)]
+    (when (= ::s/invalid rt)
+      (throw (ex-info (s/explain-str spec x)
+               (s/explain-data spec x))))
+    rt))
 
 #?(:clj
     (def TRUE (s/with-gen (constantly true) sg/int)))

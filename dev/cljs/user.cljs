@@ -3,8 +3,8 @@
     cljs.core
     [clojure.pprint :refer [pprint]]
     [clojure.repl :refer [doc source]]
-    [clojure.test :as test :include-macros true :refer [report]]
     [clojure.spec :as s]
+    [clojure.test :as test :include-macros true :refer [report]]
     [devtools.core :as devtools]
     untangled.tests-to-run
     [untangled-spec.reporters.suite :refer-macros [deftest-all-suite]]))
