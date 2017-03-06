@@ -309,9 +309,8 @@
     (cond
       (and (vector? target) (not-empty target)) target
       (and (vector? (data-ident state)) (keyword? (data-field state))) (conj (data-ident state) (data-field state))
-      :otherwise (if (vector? query-key)
-                   query-key
-                   [query-key]))))
+      (vector? query-key) query-key
+      :otherwise [query-key])))
 
 (defn data-params
   "Get the parameters that the user wants to add to the first join/keyword of the data fetch query."
@@ -366,12 +365,10 @@
       (when relocate?
         (let [value (get-in @state-atom default-target)]
           (swap! state-atom (fn [m]
-                              (if (vector? query-key)
-                                  (-> m
-                                      (assoc-in explicit-target query-key))
-                                  (-> m
-                                      (dissoc (data-query-key item))
-                                      (assoc-in explicit-target value))))))))))
+                              (cond-> m
+                                (vector? query-key) (assoc-in explicit-target query-key)
+                                (not (vector query-key)) (assoc-in explicit-target value)
+                                (not (vector query-key)) (dissoc (data-query-key item))))))))))
 
 (defn- loaded-callback
   "Generates a callback that processes all of the post-processing steps once a remote load has completed. This includes:
