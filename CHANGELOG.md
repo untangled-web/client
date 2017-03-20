@@ -2,6 +2,7 @@
 -----
 - Fixed load markers for ident-based loading: They will appear iff the entity is already present (refresh)
 - Cleaned up logic around data markers related to markers and data targeting
+- Added support for post-mutation-params to load-field, load-field-action, load-data and load-data-action
 
 0.8.0
 -----
