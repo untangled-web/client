@@ -1,12 +1,13 @@
 (ns untangled.client.impl.util
   (:require
     [clojure.pprint :refer [pprint]]
-    [clojure.spec :as s]
     [om.next :as om]
     #?(:clj
-    [clojure.spec.gen :as sg]))
+      [clojure.spec.alpha :as s])
+    #?(:clj
+      [clojure.spec.gen.alpha :as gen]))
   #?(:clj
-     (:import (clojure.lang Atom))))
+     (:import [clojure.lang Atom])))
 
 (defn atom? [a] (instance? Atom a))
 
@@ -49,4 +50,4 @@
        rt)))
 
 #?(:clj
-   (def TRUE (s/with-gen (constantly true) sg/int)))
+   (def TRUE (s/with-gen (constantly true) gen/int)))

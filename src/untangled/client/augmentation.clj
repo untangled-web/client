@@ -2,7 +2,7 @@
   (:require
     [untangled.client.impl.util :as utl]
     [clojure.string :as str]
-    [clojure.spec :as s]))
+    [clojure.spec.alpha :as s]))
 
 (defmulti defui-augmentation
    "Multimethod for defining augments for use in `untangled.client.ui/defui`.

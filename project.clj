@@ -8,8 +8,9 @@
                  [devcards "0.2.2" :exclusions [org.omcljs/om org.omcljs/om org.clojure/core.async] :scope "provided"]
                  [lein-doo "0.1.7" :scope "test"]
                  [navis/untangled-spec "1.0.0-alpha3" :scope "test"]
-                 [org.clojure/clojure "1.9.0-alpha14" :scope "provided"]
-                 [org.clojure/clojurescript "1.9.494" :scope "provided"]
+                 [org.clojure/clojure "1.9.0" :scope "provided"]
+                 [org.clojure/clojurescript "1.10.238" :scope "provided"]
+                 [org.clojure/spec.alpha "0.1.143"]
                  [org.clojure/core.async "0.3.442" :exclusions [org.clojure/tools.reader]]
                  [com.ibm.icu/icu4j "58.2"]                 ; needed for i18n on server-side rendering
                  [org.omcljs/om "1.0.0-alpha48" :scope "provided"]
@@ -22,6 +23,7 @@
   :clean-targets ^{:protect false} ["resources/private/js" "resources/public/js/cards" "resources/public/js/test" "resources/public/js/compiled" "target"]
 
   :plugins [[lein-cljsbuild "1.1.5"]
+            [lein-figwheel "0.5.16"]
             [lein-doo "0.1.7"]
             [com.jakemccrary/lein-test-refresh "0.19.0"]]
 
@@ -71,7 +73,7 @@
                                   :nrepl-middleware [cemerick.piggieback/wrap-cljs-repl]}
                    :dependencies [[binaryage/devtools "0.9.2"]
                                   [com.cemerick/piggieback "0.2.1"]
-                                  [figwheel-sidecar "0.5.9"]
+                                  [figwheel-sidecar "0.5.16"]
                                   [org.clojure/test.check "0.9.0"]
                                   [org.clojure/tools.namespace "0.3.0-alpha3"]
                                   [org.clojure/tools.nrepl "0.2.12"]]}})

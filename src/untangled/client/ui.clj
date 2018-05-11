@@ -2,7 +2,7 @@
   (:require
     [cljs.analyzer :as ana]
     [clojure.pprint :refer [pprint]]
-    [clojure.spec :as s]
+    [clojure.spec.alpha :as s]
     [om.next :as om]
     [untangled.client.augmentation :as aug]
     [untangled.client.impl.built-in-augments]

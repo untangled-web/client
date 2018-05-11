@@ -1,7 +1,7 @@
 (ns untangled.client.mutations
   #?(:cljs (:require-macros untangled.client.mutations))
   (:require
-    #?(:clj [clojure.spec :as s])
+    #?(:clj [clojure.spec.alpha :as s])
             [om.next :as om]))
 
 ;; Add methods to this to implement your local mutations
